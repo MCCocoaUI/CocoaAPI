@@ -16,3 +16,7 @@ run
 out
 bin
 eclipse
+*.ipr
+*.iws
+*.iml
+.gradle
