@@ -1,0 +1,14 @@
+[
+{
+  "modid": "cocoa_api",
+  "name": "Cocoa API",
+  "description": "A mod API.",
+  "version": "alpha-0.1",
+  "mcversion": "1.12.2",
+  "url": "https://cocoa.hookan.top",
+  "authorList": ["huangtian_hookan"],
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

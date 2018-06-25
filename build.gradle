@@ -1,0 +1,75 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "alpha-0.1"
+group = "top.hookan.cocoa"
+archivesBaseName = "Cocoa"
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java/'
+        }
+        resources {
+            srcDir "src/main/resources/"
+        }
+    }
+    demo {
+        java {
+            srcDir 'src/demo/java/'
+        }
+		resources {
+            srcDir "src/demo/resources/"
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs += sourceSets.main.allSource.getSrcDirs()
+        sourceDirs += sourceSets.demo.allSource.getSrcDirs()
+    }
+}
+
+minecraft {
+    version = "1.12.2-14.23.4.2705"
+    runDir = "run"
+    mappings = "snapshot_20171003"
+}
+
+dependencies {
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': project.group + '.core.CorePlugin',
+                'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
