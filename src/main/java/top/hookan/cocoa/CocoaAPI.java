@@ -10,7 +10,7 @@ public class CocoaAPI
 {
     public static final String MODID = "cocoa_api";
     public static final String NAME = "Cocoa API";
-    public static final String VERSION = "alpha-0.1";
+    public static final String VERSION = "0.1.0";
     
     public void preInit(FMLPreInitializationEvent event)
     {

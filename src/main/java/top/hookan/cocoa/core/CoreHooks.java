@@ -1,8 +1,10 @@
 package top.hookan.cocoa.core;
 
-import jdk.internal.org.objectweb.asm.tree.ClassNode;
 import net.minecraftforge.fml.common.discovery.asm.ASMModParser;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.tree.ClassNode;
 import top.hookan.cocoa.core.annotation.CocoaHook;
+import top.hookan.cocoa.registry.RegistryHandler;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -14,7 +16,7 @@ public class CoreHooks extends CocoaTransformer
             mcp = "<init>:(Ljava/io/InputStream;)V",
             notch = "<init>:(Ljava/io/InputStream;)V",
             type = CocoaHook.HookType.BEGIN)
-    public static void checkRegClass(ASMModParser parser, InputStream input)
+    public static void checkClass(ASMModParser parser, InputStream input)
     {
         try
         {
@@ -26,7 +28,10 @@ public class CoreHooks extends CocoaTransformer
                 String path = (String) field.get(input);
                 input = new FileInputStream(path);
                 ClassNode classNode = new ClassNode();
+                ClassReader reader = new ClassReader(input);
+                reader.accept(classNode, 0);
                 
+                RegistryHandler.checkClass(classNode);
             }
         }
         catch (Exception e)
