@@ -19,3 +19,4 @@ eclipse
 *.iws
 *.iml
 .gradle
+.idea

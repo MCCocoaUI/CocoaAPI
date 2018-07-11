@@ -10,7 +10,8 @@ public class Hooks extends CocoaTransformer
             mcp = "clickMouse:()V",
             notch = "aA:()V",
             type = CocoaHook.HookType.END)
-    public static void testFun1(Minecraft mc){
+    public static void testFun1(Minecraft mc)
+    {
         System.out.println("玩家攻击！END");
     }
 }

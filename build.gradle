@@ -27,7 +27,7 @@ sourceSets {
             srcDir "src/main/resources/"
         }
     }
-    demo {
+    test {
         java {
             srcDir 'src/demo/java/'
         }
@@ -37,10 +37,33 @@ sourceSets {
     }
 }
 
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+    manifest {
+        attributes 'FMLCorePlugin': project.group + '.core.CorePlugin',
+                'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
+
+task testJar(type: Jar) {
+    from "build/sources/test/java"
+    classifier = 'demo'
+    manifest {
+        attributes 'FMLCorePlugin': project.group + '.demo.core.Core',
+                'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
+
+artifacts {
+    archives deobfJar
+    archives testJar
+}
+
 idea {
     module {
         sourceDirs += sourceSets.main.allSource.getSrcDirs()
-        sourceDirs += sourceSets.demo.allSource.getSrcDirs()
+        sourceDirs += sourceSets.test.allSource.getSrcDirs()
     }
 }
 

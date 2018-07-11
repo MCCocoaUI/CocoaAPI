@@ -10,32 +10,26 @@ import java.util.Map;
 @IFMLLoadingPlugin.DependsOn("cocoa_api_core")
 public class Core implements IFMLLoadingPlugin
 {
-    @Override
     public String[] getASMTransformerClass()
     {
         return new String[]{"top.hookan.cocoa.demo.core.Hooks"};
     }
     
-    @Override
     public String getModContainerClass()
     {
         return "top.hookan.cocoa.demo.core.Container";
     }
     
-    @Nullable
-    @Override
     public String getSetupClass()
     {
         return null;
     }
     
-    @Override
     public void injectData(Map<String, Object> data)
     {
     
     }
     
-    @Override
     public String getAccessTransformerClass()
     {
         return null;
