@@ -208,7 +208,7 @@ public abstract class CocoaTransformer implements IClassTransformer
                             methodNode.instructions = insnList;
                             break;
                         case END:
-                            methodNode.instructions.insertBefore(methodNode.instructions.getLast(), insnList);
+                            methodNode.instructions.insertBefore(methodNode.instructions.getLast().getPrevious(), insnList);
                             break;
                     }
                 }

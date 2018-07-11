@@ -8,7 +8,7 @@ public class Hooks extends CocoaTransformer
 {
     @CocoaHook(owner = "net.minecraft.client.Minecraft",
             mcp = "clickMouse:()V",
-            notch = "clickMouse:()V",
+            notch = "aA:()V",
             type = CocoaHook.HookType.END)
     public static void testFun1(Minecraft mc){
         System.out.println("玩家攻击！END");
