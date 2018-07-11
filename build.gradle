@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "alpha-0.1"
+version = "0.1.0"
 group = "top.hookan.cocoa"
 archivesBaseName = "Cocoa"
 

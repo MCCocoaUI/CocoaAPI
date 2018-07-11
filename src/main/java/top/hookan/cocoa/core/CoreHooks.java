@@ -26,6 +26,7 @@ public class CoreHooks extends CocoaTransformer
                 Field field = clazz.getDeclaredField("path");
                 field.setAccessible(true);
                 String path = (String) field.get(input);
+                System.out.println(path);
                 input = new FileInputStream(path);
                 ClassNode classNode = new ClassNode();
                 ClassReader reader = new ClassReader(input);
