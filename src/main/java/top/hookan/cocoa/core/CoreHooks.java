@@ -6,34 +6,25 @@ import org.objectweb.asm.tree.ClassNode;
 import top.hookan.cocoa.core.annotation.CocoaHook;
 import top.hookan.cocoa.registry.RegistryHandler;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 
 public class CoreHooks extends CocoaTransformer
 {
     @CocoaHook(owner = "net.minecraftforge.fml.common.discovery.asm.ASMModParser",
             mcp = "<init>:(Ljava/io/InputStream;)V",
             notch = "<init>:(Ljava/io/InputStream;)V",
-            type = CocoaHook.HookType.BEGIN)
-    public static void checkClass(ASMModParser parser, InputStream input)
+            type = CocoaHook.HookType.EXTRA_LOAD,
+            extra = "ALOAD_2")
+    public static void checkClass(ASMModParser parser, InputStream input, ClassReader reader)
     {
         try
         {
-            if (input instanceof FileInputStream)
-            {
-                Class clazz = input.getClass();
-                Field field = clazz.getDeclaredField("path");
-                field.setAccessible(true);
-                String path = (String) field.get(input);
-                System.out.println(path);
-                input = new FileInputStream(path);
-                ClassNode classNode = new ClassNode();
-                ClassReader reader = new ClassReader(input);
-                reader.accept(classNode, 0);
-                
-                RegistryHandler.checkClass(classNode);
-            }
+            ClassNode classNode = new ClassNode();
+            reader.accept(classNode, 0);
+            System.out.println(classNode.name);
+            
+            RegistryHandler.checkClass(classNode);
+            
         }
         catch (Exception e)
         {

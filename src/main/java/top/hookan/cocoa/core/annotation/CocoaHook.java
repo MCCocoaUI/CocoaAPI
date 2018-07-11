@@ -13,11 +13,13 @@ public @interface CocoaHook
     String mcp();
     String notch();
     HookType type();
+    String extra() default "";
     
     enum HookType
     {
         BEGIN,
         BEGIN_WITH_RETURN,
         END,
+        EXTRA_LOAD
     }
 }

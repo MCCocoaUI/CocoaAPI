@@ -67,10 +67,17 @@ public abstract class CocoaTransformer implements IClassTransformer
                                     {
                                         hook.type = CocoaHook.HookType.BEGIN;
                                     }
-                                    else
+                                    else if (args[1].equals("END"))
                                     {
                                         hook.type = CocoaHook.HookType.END;
                                     }
+                                    else
+                                    {
+                                        hook.type = CocoaHook.HookType.EXTRA_LOAD;
+                                    }
+                                    break;
+                                case "extra":
+                                    hook.extra = objs[i + 1].toString();
                                     break;
                             }
                         }
@@ -185,6 +192,11 @@ public abstract class CocoaTransformer implements IClassTransformer
                     insnList.add(mInsnNode);
                     switch (hook.type)
                     {
+                        case BEGIN_WITH_RETURN:
+                            AbstractInsnNode returnNode = new InsnNode(methodNode.instructions.getLast().getPrevious().getOpcode());
+                            insnList.add(returnNode);
+                            methodNode.instructions = insnList;
+                            break;
                         case BEGIN:
                             if (methodNode.name.equals("<init>"))
                             {
@@ -202,19 +214,48 @@ public abstract class CocoaTransformer implements IClassTransformer
                                 methodNode.instructions.insert(methodNode.instructions.getFirst().getNext(), insnList);
                             }
                             break;
-                        case BEGIN_WITH_RETURN:
-                            AbstractInsnNode returnNode = new InsnNode(methodNode.instructions.getLast().getPrevious().getOpcode());
-                            insnList.add(returnNode);
-                            methodNode.instructions = insnList;
-                            break;
                         case END:
                             methodNode.instructions.insertBefore(methodNode.instructions.getLast().getPrevious(), insnList);
+                            break;
+                        case EXTRA_LOAD:
+                            String args[] = hook.extra.split("_");
+                            int opc = Integer.MIN_VALUE;
+                            switch (args[0])
+                            {
+                                case "ALOAD":
+                                    opc = Opcodes.ASTORE;
+                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.ALOAD,Integer.parseInt(args[1])));
+                                    break;
+                                case "ILOAD":
+                                    opc = Opcodes.ISTORE;
+                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.ILOAD,Integer.parseInt(args[1])));
+                                    break;
+                                case "LLOAD":
+                                    opc = Opcodes.LSTORE;
+                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.LLOAD,Integer.parseInt(args[1])));
+                                    break;
+                                case "FLOAD":
+                                    opc = Opcodes.FSTORE;
+                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.FLOAD,Integer.parseInt(args[1])));
+                                    break;
+                                case "DLOAD":
+                                    opc = Opcodes.DSTORE;
+                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.DLOAD,Integer.parseInt(args[1])));
+                                    break;
+                            }
+                            for (AbstractInsnNode aNode : methodNode.instructions.toArray())
+                            {
+                                if(aNode.getOpcode() == opc)
+                                {
+                                    methodNode.instructions.insert(aNode,insnList);
+                                    break;
+                                }
+                            }
                             break;
                     }
                 }
             }
         }
-        
         ClassWriter writer = new ClassWriter(Opcodes.ASM5);
         classNode.accept(writer);
         byte[] transformedClass = writer.toByteArray();
@@ -232,5 +273,6 @@ class Hook
     String mcpDesc;
     String notchName;
     String notchDesc;
+    String extra;
     CocoaHook.HookType type;
 }
