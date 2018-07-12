@@ -16,7 +16,7 @@ public class ClientProxy extends CommonProxy
         super.init(event);
         try
         {
-            testTTF = CocoaGuiUtils.loadTTF(this.getClass().getResourceAsStream("/assets/cocoa_api_demo/ttf/test.ttc"), "test");
+            testTTF = CocoaGuiUtils.loadTTF(this.getClass().getResourceAsStream("/assets/cocoa_api_demo/ttf/test.ttf"), "test");
         }
         catch (IOException e)
         {
