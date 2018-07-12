@@ -26,6 +26,7 @@ public class TTFRender extends FontRenderer
     private String fontName;
     private TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
     private Map<Character, ResourceLocation> charMap = new HashMap<>();
+    private FontMetrics fontMetrics;
     
     TTFRender(InputStream ttfInput, String fontName) throws IOException, FontFormatException
     {
@@ -34,6 +35,7 @@ public class TTFRender extends FontRenderer
         ttfInput.close();
         ttf = ttf.deriveFont(48.0f);
         this.fontName = fontName;
+        fontMetrics = FontDesignMetrics.getMetrics(ttf);
     }
     
     private ResourceLocation getResourceLocation(char c)
@@ -83,8 +85,6 @@ public class TTFRender extends FontRenderer
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glDisable(GL11.GL_BLEND);
         
-        FontMetrics fm = FontDesignMetrics.getMetrics(ttf);
-        
-        return 15f * fm.charWidth(ch) / 64.0f;
+        return 15f * fontMetrics.charWidth(ch) / 64.0f;
     }
 }
