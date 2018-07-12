@@ -42,22 +42,22 @@ public class TTFRender extends FontRenderer
     {
         if (charMap.containsKey(c)) return charMap.get(c);
         String str = String.valueOf(c);
+        
         int width = 64;
         int height = 64;
+        
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics g = image.getGraphics();
         g.setClip(0, 0, width, height);
         g.setColor(Color.white);
         g.setFont(ttf);
         Rectangle clip = g.getClipBounds();
-        FontMetrics fm = g.getFontMetrics(ttf);
-        int ascent = fm.getAscent();
-        int descent = fm.getDescent();
+        
+        int ascent = fontMetrics.getAscent();
+        int descent = fontMetrics.getDescent();
         int y = (clip.height - (ascent + descent)) / 2 + ascent;
-        for (int i = 0; i < 6; i++)
-        {
-            g.drawString(str, i * 680, y);
-        }
+        
+        g.drawString(str, 0, y);
         g.dispose();
         
         ResourceLocation rl = new ResourceLocation(CocoaAPI.MODID, "font_" + fontName + "_" + UUID.randomUUID());
