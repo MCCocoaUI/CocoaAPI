@@ -15,7 +15,7 @@ public class Container extends DummyModContainer
         ModMetadata meta = getMetadata();
         meta.modId = "cocoa_api_demo_core";
         meta.name = "Cocoa API Demo Core";
-        meta.authorList = Arrays.asList("huangtian_hookan");
+        meta.authorList = Arrays.asList("huangtian_hookan","KevinWalker");
     }
     
     public boolean registerBus(EventBus bus, LoadController controller)
