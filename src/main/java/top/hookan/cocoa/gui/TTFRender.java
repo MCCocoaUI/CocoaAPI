@@ -8,7 +8,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-import sun.font.FontDesignMetrics;
 import top.hookan.cocoa.CocoaAPI;
 
 import java.awt.*;
@@ -35,7 +34,7 @@ public class TTFRender extends FontRenderer
         ttfInput.close();
         ttf = ttf.deriveFont(48.0f);
         this.fontName = fontName;
-        fontMetrics = FontDesignMetrics.getMetrics(ttf);
+        fontMetrics = new Label().getFontMetrics(ttf);
     }
     
     private ResourceLocation getResourceLocation(char c)
