@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import net.minecraftforge.fml.common.DummyModContainer;
 import net.minecraftforge.fml.common.LoadController;
 import net.minecraftforge.fml.common.ModMetadata;
+import top.hookan.cocoa.registry.RegistryHandler;
 
 import java.util.Arrays;
 
@@ -22,6 +23,7 @@ public class CoreContainer extends DummyModContainer
     
     public boolean registerBus(EventBus bus, LoadController controller)
     {
+        bus.register(new RegistryHandler());
         return true;
     }
 }

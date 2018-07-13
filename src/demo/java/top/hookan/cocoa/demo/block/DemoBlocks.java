@@ -8,7 +8,7 @@ import top.hookan.cocoa.registry.annotation.CocoaReg;
 public class DemoBlocks
 {
     @CocoaReg.Reg("demo")
-    @CocoaReg.ModelReg("demo")
+    //@CocoaReg.ModelReg("demo")
     @CocoaReg.OreDicReg("demo")
     public static Block demoBlock = new BlockDemo();
 }
