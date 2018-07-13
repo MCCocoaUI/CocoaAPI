@@ -1,15 +1,15 @@
 buildscript {
     repositories {
         jcenter() { 
-			url = 'http://jcenter.bintray.com/' 
-		} 
+            url = 'http://jcenter.bintray.com/' 
+        } 
         maven {
-			name = 'forge'
-			url = 'http://files.minecraftforge.net/maven'
-		}
-		maven {
-			url = 'http://repository.jboss.org/nexus/content/groups/public'
-		}
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+        maven {
+            url = 'http://repository.jboss.org/nexus/content/groups/public'
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -17,12 +17,12 @@ buildscript {
 }
 allprojects {
     repositories {
-		jcenter() {
-			url = 'http://jcenter.bintray.com/'
-		}
+        jcenter() {
+            url = 'http://jcenter.bintray.com/'
+        }
         maven {
-			url 'http://repository.jboss.org/nexus/content/groups/public' 
-		}
+            url 'http://repository.jboss.org/nexus/content/groups/public' 
+        }
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -49,7 +49,7 @@ sourceSets {
         java {
             srcDir 'src/demo/java/'
         }
-		resources {
+        resources {
             srcDir "src/demo/resources/"
         }
     }
