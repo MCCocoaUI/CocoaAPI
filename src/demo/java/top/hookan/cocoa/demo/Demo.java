@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import top.hookan.cocoa.demo.proxy.CommonProxy;
 
-@Mod(modid = Demo.MODID, name = Demo.NAME, dependencies = "required:forge@[14.21.1.2395,);required-after:cocoa_api@[alpha0.1,);")
+@Mod(modid = Demo.MODID, name = Demo.NAME, dependencies = "required-after:cocoa_api;")
 public class Demo
 {
     public static final String MODID = "cocoa_api_demo";
