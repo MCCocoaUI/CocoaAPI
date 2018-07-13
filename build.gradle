@@ -65,7 +65,7 @@ task deobfJar(type: Jar) {
 }
 
 task testJar(type: Jar) {
-    from "build/classes/test"
+    from sourceSets.test.output
     classifier = 'demo'
     manifest {
         attributes 'FMLCorePlugin': project.group + '.demo.core.Core',
