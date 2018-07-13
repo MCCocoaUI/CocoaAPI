@@ -1,6 +1,7 @@
 package top.hookan.cocoa.demo.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import top.hookan.cocoa.demo.Demo;
 import top.hookan.cocoa.registry.annotation.CocoaReg;
 
@@ -8,7 +9,7 @@ import top.hookan.cocoa.registry.annotation.CocoaReg;
 public class DemoBlocks
 {
     @CocoaReg.Reg("demo")
-    //@CocoaReg.ModelReg("demo")
+    @CocoaReg.ModelReg("demo")
     @CocoaReg.OreDicReg("demo")
-    public static Block demoBlock = new BlockDemo();
+    public static Block demoBlock = new BlockDemo().setCreativeTab(CreativeTabs.FOOD);
 }

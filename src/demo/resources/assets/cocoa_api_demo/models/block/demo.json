@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "cocoa_api_demo:blocks/demo"
+  }
+}
