@@ -29,7 +29,8 @@ public class Hooks extends CocoaTransformer
     }
     
     private static int frame = 0;
-    
+    private static int frame1 = 0;
+
     @CocoaHook(owner = "net.minecraft.client.gui.GuiMainMenu",
             mcp = "drawScreen:(IIF)V",
             notch = "drawScreen:(IIF)V",
@@ -42,6 +43,14 @@ public class Hooks extends CocoaTransformer
         ClientProxy.testGif.doDraw(frame, 0, 20, 64, 64, 0, 0, 1, 1, 1, 1);
         frame++;
         if (frame >= ClientProxy.testGif.getFrames()) frame = 0;
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        ClientProxy.test1Gif.doDraw(frame1, mainMenu.width - 105 , mainMenu.height/2 - 45 , 105, 120, 0, 0, 105, 120, 105, 120);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        frame1++;
+        if (frame1 >= ClientProxy.test1Gif.getFrames()) frame1 = 0;
         /*GL11.glDisable(GL11.GL_TEXTURE_2D);
         
         GL11.glColor3f(1.0f, 1.0f, 1.0f);

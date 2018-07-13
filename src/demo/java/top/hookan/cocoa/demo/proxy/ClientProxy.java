@@ -14,7 +14,8 @@ public class ClientProxy extends CommonProxy
 {
     public static TTFRender testTTF;
     public static GifRender testGif;
-    
+    public static GifRender test1Gif;
+
     public void init(FMLInitializationEvent event)
     {
         super.init(event);
@@ -22,6 +23,7 @@ public class ClientProxy extends CommonProxy
         {
             testTTF = CocoaGuiUtils.loadTTF(new ResourceLocation(Demo.MODID, "ttf/test.ttc"), "test");
             testGif = CocoaGuiUtils.loadGif(new ResourceLocation(Demo.MODID, "texture/test.gif"), "test");
+            test1Gif = CocoaGuiUtils.loadGif(new ResourceLocation(Demo.MODID, "texture/test1.gif"), "test1");
         }
         catch (IOException e)
         {
