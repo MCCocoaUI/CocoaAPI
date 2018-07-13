@@ -3,8 +3,6 @@ package top.hookan.cocoa.demo.core;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.fml.common.FMLLog;
-import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.GL11;
 import top.hookan.cocoa.core.CocoaTransformer;
 import top.hookan.cocoa.core.annotation.CocoaHook;
@@ -30,6 +28,8 @@ public class Hooks extends CocoaTransformer
         if (mc.player != null) mc.player.sendMessage(new TextComponentString("玩家点击鼠标 BEGIN"));
     }
     
+    private static int frame = 0;
+    
     @CocoaHook(owner = "net.minecraft.client.gui.GuiMainMenu",
             mcp = "drawScreen:(IIF)V",
             notch = "drawScreen:(IIF)V",
@@ -38,6 +38,10 @@ public class Hooks extends CocoaTransformer
     {
         ClientProxy.testTTF.drawString("沉寂大佬欺负我嘤嘤嘤QAQ\u00A7aABCDEFG\u00A7cabcdefg", 0, 0, 0xFFFFFF00);
         
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        ClientProxy.testGif.doDraw(frame, 0, 20, 64, 64, 0, 0, 1, 1, 1, 1);
+        frame++;
+        if (frame >= ClientProxy.testGif.getFrames()) frame = 0;
         /*GL11.glDisable(GL11.GL_TEXTURE_2D);
         
         GL11.glColor3f(1.0f, 1.0f, 1.0f);
