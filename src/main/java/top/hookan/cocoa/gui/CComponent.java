@@ -1,5 +1,7 @@
 package top.hookan.cocoa.gui;
 
+import top.hookan.cocoa.gui.event.CComponentEvent;
+
 public abstract class CComponent
 {
     public String name;
@@ -18,22 +20,33 @@ public abstract class CComponent
     
     public abstract void doDraw();
     
-    public void onMouseEntered()
+    void onMouseEntered(int mouseX, int mouseY)
     {
         didMouseEnter = true;
+        CocoaGuiUtils.EVENT_BUS.post(new CComponentEvent.MouseEntered(this, mouseX, mouseY));
     }
     
-    public void onMouseExited()
+    void onMouseExited(int mouseX, int mouseY)
     {
         didMouseEnter = false;
+        CocoaGuiUtils.EVENT_BUS.post(new CComponentEvent.MouseEntered(this, mouseX, mouseY));
     }
     
-    public void onMousePressed()
+    protected void onMousePressed(int mouseX, int mouseY)
     {
-    
+        CocoaGuiUtils.EVENT_BUS.post(new CComponentEvent.MousePressed(this, mouseX, mouseY));
     }
     
-    public void mouseReleased()
+    void onMouseReleased(int mouseX, int mouseY)
+    {
+        if (!didMouseEnter) return;
+        CComponentEvent.MouseReleased event = new CComponentEvent.MouseReleased(this, mouseX, mouseY);
+        CocoaGuiUtils.EVENT_BUS.post(event);
+        if (event.isCanceled()) return;
+        onMouseClicked(mouseX, mouseY);
+    }
+    
+    protected void onMouseClicked(int mouseX, int mouseY)
     {
     
     }

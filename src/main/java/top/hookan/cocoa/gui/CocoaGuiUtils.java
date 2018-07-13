@@ -1,5 +1,6 @@
 package top.hookan.cocoa.gui;
 
+import com.google.common.eventbus.EventBus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.util.ResourceLocation;
@@ -12,6 +13,8 @@ import java.io.InputStream;
 public class CocoaGuiUtils
 {
     private static IResourcePack mcPack = Minecraft.getMinecraft().mcDefaultResourcePack;
+    
+    public static final EventBus EVENT_BUS = new EventBus();
     
     public static TTFRender loadTTF(InputStream input, String name) throws IOException, FontFormatException
     {
