@@ -7,16 +7,34 @@ public abstract class CComponent
     public double y;
     public double width;
     public double height;
-    public String type;
-    public  boolean hover;
-
-    abstract void doDraw();
-
-    abstract void drawTip();
-
-    abstract void clickComponent();
-
-    abstract void stopClickComponent();
-
-    abstract void onMouseHover();
+    public boolean hover;
+    public final String type;
+    protected boolean didMouseEnter;
+    
+    public CComponent(String type)
+    {
+        this.type = type;
+    }
+    
+    public abstract void doDraw();
+    
+    public void onMouseEntered()
+    {
+        didMouseEnter = true;
+    }
+    
+    public void onMouseExited()
+    {
+        didMouseEnter = false;
+    }
+    
+    public void onMousePressed()
+    {
+    
+    }
+    
+    public void mouseReleased()
+    {
+    
+    }
 }
