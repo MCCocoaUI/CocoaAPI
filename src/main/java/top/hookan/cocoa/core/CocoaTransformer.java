@@ -150,7 +150,7 @@ public abstract class CocoaTransformer implements IClassTransformer
                             }
                             else if (chars[i] == ')') break;
                         }
-                        if (var > methodNode.maxStack) methodNode.maxStack = var;
+                        methodNode.maxStack += var;
                     }
                     else
                     {
@@ -188,7 +188,7 @@ public abstract class CocoaTransformer implements IClassTransformer
                             }
                             else if (chars[i] == ')') break;
                         }
-                        if (var > methodNode.maxStack) methodNode.maxStack = var;
+                        methodNode.maxStack += var;
                     }
                     MethodInsnNode mInsnNode = new MethodInsnNode(Opcodes.INVOKESTATIC, hook.hookOwner, hook.hookName, hook.hookDesc, false);
                     insnList.add(mInsnNode);
