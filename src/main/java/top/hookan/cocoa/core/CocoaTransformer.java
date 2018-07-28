@@ -126,7 +126,7 @@ public abstract class CocoaTransformer implements IClassTransformer
                             {
                                 insnList.add(new VarInsnNode(Opcodes.ALOAD, var));
                                 var++;
-                                while (i != ';') i++;
+                                while (chars[i] != ';') i++;
                             }
                             else if (chars[i] == 'B' || chars[i] == 'S' || chars[i] == 'I' || chars[i] == 'Z' || chars[i] == 'C')
                             {
@@ -150,6 +150,7 @@ public abstract class CocoaTransformer implements IClassTransformer
                             }
                             else if (chars[i] == ')') break;
                         }
+                        if (var > methodNode.maxStack) methodNode.maxStack = var;
                     }
                     else
                     {
@@ -163,7 +164,7 @@ public abstract class CocoaTransformer implements IClassTransformer
                             {
                                 insnList.add(new VarInsnNode(Opcodes.ALOAD, var));
                                 var++;
-                                while (i != ';') i++;
+                                while (chars[i] != ';') i++;
                             }
                             else if (chars[i] == 'B' || chars[i] == 'S' || chars[i] == 'I' || chars[i] == 'Z' || chars[i] == 'C')
                             {
@@ -187,6 +188,7 @@ public abstract class CocoaTransformer implements IClassTransformer
                             }
                             else if (chars[i] == ')') break;
                         }
+                        if (var > methodNode.maxStack) methodNode.maxStack = var;
                     }
                     MethodInsnNode mInsnNode = new MethodInsnNode(Opcodes.INVOKESTATIC, hook.hookOwner, hook.hookName, hook.hookDesc, false);
                     insnList.add(mInsnNode);
@@ -224,30 +226,30 @@ public abstract class CocoaTransformer implements IClassTransformer
                             {
                                 case "ALOAD":
                                     opc = Opcodes.ASTORE;
-                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.ALOAD,Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.ALOAD, Integer.parseInt(args[1])));
                                     break;
                                 case "ILOAD":
                                     opc = Opcodes.ISTORE;
-                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.ILOAD,Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.ILOAD, Integer.parseInt(args[1])));
                                     break;
                                 case "LLOAD":
                                     opc = Opcodes.LSTORE;
-                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.LLOAD,Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.LLOAD, Integer.parseInt(args[1])));
                                     break;
                                 case "FLOAD":
                                     opc = Opcodes.FSTORE;
-                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.FLOAD,Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.FLOAD, Integer.parseInt(args[1])));
                                     break;
                                 case "DLOAD":
                                     opc = Opcodes.DSTORE;
-                                    insnList.insertBefore(insnList.getLast(),new VarInsnNode(Opcodes.DLOAD,Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.DLOAD, Integer.parseInt(args[1])));
                                     break;
                             }
                             for (AbstractInsnNode aNode : methodNode.instructions.toArray())
                             {
-                                if(aNode.getOpcode() == opc)
+                                if (aNode.getOpcode() == opc)
                                 {
-                                    methodNode.instructions.insert(aNode,insnList);
+                                    methodNode.instructions.insert(aNode, insnList);
                                     break;
                                 }
                             }
@@ -261,18 +263,20 @@ public abstract class CocoaTransformer implements IClassTransformer
         byte[] transformedClass = writer.toByteArray();
         return transformedClass;
     }
+    
+    private static class Hook
+    {
+        String hookName;
+        String hookOwner;
+        String hookDesc;
+        String owner;
+        String mcpName;
+        String mcpDesc;
+        String notchName;
+        String notchDesc;
+        String extra;
+        CocoaHook.HookType type;
+    }
 }
 
-class Hook
-{
-    String hookName;
-    String hookOwner;
-    String hookDesc;
-    String owner;
-    String mcpName;
-    String mcpDesc;
-    String notchName;
-    String notchDesc;
-    String extra;
-    CocoaHook.HookType type;
-}
+
