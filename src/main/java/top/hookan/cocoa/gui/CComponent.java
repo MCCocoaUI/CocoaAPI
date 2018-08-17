@@ -17,7 +17,7 @@ public abstract class CComponent
     {
         this.type = type;
     }
-    
+
     public abstract void doDraw();
     
     void onMouseEntered(int mouseX, int mouseY)

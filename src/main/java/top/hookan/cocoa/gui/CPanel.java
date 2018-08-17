@@ -11,7 +11,7 @@ public class CPanel extends CContainer {
     {
         super("panel");
     }
-    
+
     public void doDraw()
     {
     
