@@ -16,7 +16,7 @@ public class CoreContainer extends DummyModContainer
         ModMetadata meta = getMetadata();
         meta.modId = "cocoa_api_core";
         meta.name = "Cocoa API Core";
-        meta.version = "0.1.0";
+        meta.version = "@version@";
         meta.authorList = Arrays.asList("huangtian_hookan");
         meta.description = "Cocoa API Core.";
     }
