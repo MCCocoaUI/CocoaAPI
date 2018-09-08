@@ -36,7 +36,8 @@ public class CocoaGuiUtils
         return loadGif(mcPack.getInputStream(location), name);
     }
     
-    public static void drawPic(double x, double y, double w, double h, double u, double v, double tw, double th, double twm, double thm)
+    public static void drawPic(double x, double y, double w, double h, double u, double v, double tw, double th,
+            double twm, double thm)
     {
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2d(u / twm, v / twm);

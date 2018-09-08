@@ -21,7 +21,7 @@ public class CoreHooks extends CocoaTransformer
         {
             ClassNode classNode = new ClassNode();
             reader.accept(classNode, 0);
-            
+
             RegistryHandler.checkClass(classNode);
         }
         catch (Exception e)

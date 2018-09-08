@@ -13,7 +13,7 @@ public @interface CocoaReg
      * Main class of mod
      */
     Class value();
-    
+
     /**
      * Register impl
      */
@@ -26,7 +26,7 @@ public @interface CocoaReg
          */
         String value();
     }
-    
+
     /**
      * Register item model and block model
      */
@@ -39,7 +39,7 @@ public @interface CocoaReg
          */
         String value();
     }
-    
+
     /**
      * Register ore dictionary
      */
@@ -52,7 +52,7 @@ public @interface CocoaReg
          */
         String value();
     }
-    
+
     /**
      * Register dimension
      */
@@ -65,7 +65,7 @@ public @interface CocoaReg
          */
         int value();
     }
-    
+
     /**
      * Register command
      */

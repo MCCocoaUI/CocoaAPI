@@ -12,22 +12,22 @@ public class CorePlugin implements IFMLLoadingPlugin
     {
         return new String[]{"top.hookan.cocoa.core.CoreHooks"};
     }
-    
+
     public String getModContainerClass()
     {
         return "top.hookan.cocoa.core.CoreContainer";
     }
-    
+
     public String getSetupClass()
     {
         return null;
     }
-    
+
     public void injectData(Map<String, Object> data)
     {
-    
+
     }
-    
+
     public String getAccessTransformerClass()
     {
         return null;

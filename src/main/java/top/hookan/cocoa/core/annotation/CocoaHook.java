@@ -10,11 +10,15 @@ import java.lang.annotation.Target;
 public @interface CocoaHook
 {
     String owner();
+
     String mcp();
+
     String notch();
+
     HookType type();
+
     String extra() default "";
-    
+
     enum HookType
     {
         BEGIN,

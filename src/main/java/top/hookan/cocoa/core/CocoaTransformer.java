@@ -15,7 +15,7 @@ public abstract class CocoaTransformer implements IClassTransformer
 {
     private Set<Hook> hookSet;
     private Set<String> transformClassSet;
-    
+
     public CocoaTransformer()
     {
         hookSet = new HashSet<>();
@@ -92,21 +92,21 @@ public abstract class CocoaTransformer implements IClassTransformer
             e.printStackTrace();
         }
     }
-    
+
     public byte[] transform(String name, String transformedName, byte[] basicClass)
     {
         if (!transformClassSet.contains(name)) return basicClass;
-        
+
         ClassNode classNode = new ClassNode();
         ClassReader reader = new ClassReader(basicClass);
         reader.accept(classNode, 0);
-        
+
         Set<Hook> acHookSet = new HashSet<>();
         for (Hook hook : hookSet)
         {
             if (hook.owner.equals(transformedName)) acHookSet.add(hook);
         }
-        
+
         for (MethodNode methodNode : classNode.methods)
         {
             for (Hook hook : acHookSet)
@@ -128,7 +128,8 @@ public abstract class CocoaTransformer implements IClassTransformer
                                 var++;
                                 while (chars[i] != ';') i++;
                             }
-                            else if (chars[i] == 'B' || chars[i] == 'S' || chars[i] == 'I' || chars[i] == 'Z' || chars[i] == 'C')
+                            else if (chars[i] == 'B' || chars[i] == 'S' || chars[i] == 'I' || chars[i] == 'Z' ||
+                                    chars[i] == 'C')
                             {
                                 insnList.add(new VarInsnNode(Opcodes.ILOAD, var));
                                 var++;
@@ -166,7 +167,8 @@ public abstract class CocoaTransformer implements IClassTransformer
                                 var++;
                                 while (chars[i] != ';') i++;
                             }
-                            else if (chars[i] == 'B' || chars[i] == 'S' || chars[i] == 'I' || chars[i] == 'Z' || chars[i] == 'C')
+                            else if (chars[i] == 'B' || chars[i] == 'S' || chars[i] == 'I' || chars[i] == 'Z' ||
+                                    chars[i] == 'C')
                             {
                                 insnList.add(new VarInsnNode(Opcodes.ILOAD, var));
                                 var++;
@@ -190,12 +192,14 @@ public abstract class CocoaTransformer implements IClassTransformer
                         }
                         methodNode.maxStack += var;
                     }
-                    MethodInsnNode mInsnNode = new MethodInsnNode(Opcodes.INVOKESTATIC, hook.hookOwner, hook.hookName, hook.hookDesc, false);
+                    MethodInsnNode mInsnNode = new MethodInsnNode(Opcodes.INVOKESTATIC, hook.hookOwner, hook
+                            .hookName, hook.hookDesc, false);
                     insnList.add(mInsnNode);
                     switch (hook.type)
                     {
                         case BEGIN_WITH_RETURN:
-                            AbstractInsnNode returnNode = new InsnNode(methodNode.instructions.getLast().getPrevious().getOpcode());
+                            AbstractInsnNode returnNode = new InsnNode(methodNode.instructions.getLast().getPrevious
+                                    ().getOpcode());
                             insnList.add(returnNode);
                             methodNode.instructions = insnList;
                             break;
@@ -217,7 +221,8 @@ public abstract class CocoaTransformer implements IClassTransformer
                             }
                             break;
                         case END:
-                            methodNode.instructions.insertBefore(methodNode.instructions.getLast().getPrevious(), insnList);
+                            methodNode.instructions.insertBefore(methodNode.instructions.getLast().getPrevious(),
+                                    insnList);
                             break;
                         case EXTRA_LOAD:
                             String args[] = hook.extra.split("_");
@@ -226,23 +231,28 @@ public abstract class CocoaTransformer implements IClassTransformer
                             {
                                 case "ALOAD":
                                     opc = Opcodes.ASTORE;
-                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.ALOAD, Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.ALOAD, Integer
+                                            .parseInt(args[1])));
                                     break;
                                 case "ILOAD":
                                     opc = Opcodes.ISTORE;
-                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.ILOAD, Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.ILOAD, Integer
+                                            .parseInt(args[1])));
                                     break;
                                 case "LLOAD":
                                     opc = Opcodes.LSTORE;
-                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.LLOAD, Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.LLOAD, Integer
+                                            .parseInt(args[1])));
                                     break;
                                 case "FLOAD":
                                     opc = Opcodes.FSTORE;
-                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.FLOAD, Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.FLOAD, Integer
+                                            .parseInt(args[1])));
                                     break;
                                 case "DLOAD":
                                     opc = Opcodes.DSTORE;
-                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.DLOAD, Integer.parseInt(args[1])));
+                                    insnList.insertBefore(insnList.getLast(), new VarInsnNode(Opcodes.DLOAD, Integer
+                                            .parseInt(args[1])));
                                     break;
                             }
                             for (AbstractInsnNode aNode : methodNode.instructions.toArray())
@@ -263,7 +273,7 @@ public abstract class CocoaTransformer implements IClassTransformer
         byte[] transformedClass = writer.toByteArray();
         return transformedClass;
     }
-    
+
     private static class Hook
     {
         String hookName;

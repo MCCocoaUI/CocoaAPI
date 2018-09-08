@@ -37,6 +37,7 @@ public class Hooks extends CocoaTransformer
             type = CocoaHook.HookType.END)
     public static void testDraw(GuiMainMenu mainMenu, int mouseX, int mouseY, float partialTicks)
     {
+
         ClientProxy.testTTF.drawString("沉寂大佬欺负我嘤嘤嘤QAQ\u00A7aABCDEFG\u00A7cabcdefg", 0, 0, 0xFFFFFF00);
         
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -51,6 +52,9 @@ public class Hooks extends CocoaTransformer
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         frame1++;
         if (frame1 >= ClientProxy.test1Gif.getFrames()) frame1 = 0;
+
+
+
         /*GL11.glDisable(GL11.GL_TEXTURE_2D);
         
         GL11.glColor3f(1.0f, 1.0f, 1.0f);

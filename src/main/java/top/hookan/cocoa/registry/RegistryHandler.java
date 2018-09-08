@@ -34,7 +34,7 @@ public class RegistryHandler
     private List<Class> regClassList = new ArrayList<>();
     private Map<Class, String> regClassModidMap = new HashMap<>();
     private Map<Class, Object> regClassModObjList = new HashMap<>();
-    
+
     public static void checkClass(ClassNode classNode)
     {
         if (classNode.visibleAnnotations == null) return;
@@ -47,7 +47,7 @@ public class RegistryHandler
             }
         }
     }
-    
+
     @Subscribe
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -78,7 +78,7 @@ public class RegistryHandler
                 e.printStackTrace();
             }
         }
-        
+
         for (Class clazz : regClassList)
         {
             try
@@ -92,14 +92,16 @@ public class RegistryHandler
                         Object obj = field.get(null);
                         if (obj instanceof IForgeRegistryEntry.Impl)
                         {
-                            
-                            GameRegistry.findRegistry(((IForgeRegistryEntry.Impl) obj).getRegistryType()).register(((IForgeRegistryEntry.Impl) obj).setRegistryName(modid + ":" + regInfo.value()));
+
+                            GameRegistry.findRegistry(((IForgeRegistryEntry.Impl) obj).getRegistryType()).register((
+                                    (IForgeRegistryEntry.Impl) obj).setRegistryName(modid + ":" + regInfo.value()));
                             System.out.println(((IForgeRegistryEntry.Impl) obj).getRegistryName());
                             System.out.println(modid + ":" + regInfo.value());
                         }
                         if (obj instanceof Block)
                         {
-                            ForgeRegistries.ITEMS.register(new ItemBlock((Block) obj).setRegistryName(modid + ":" + regInfo.value()));
+                            ForgeRegistries.ITEMS.register(new ItemBlock((Block) obj).setRegistryName(modid + ":" +
+                                    regInfo.value()));
                         }
                     }
                     if (event.getSide().isClient())
@@ -127,10 +129,10 @@ public class RegistryHandler
                 e.printStackTrace();
             }
         }
-        
-        
+
+
     }
-    
+
     @Subscribe
     public void init(FMLInitializationEvent event)
     {
@@ -170,7 +172,7 @@ public class RegistryHandler
             }
         }
     }
-    
+
     @Subscribe
     public void serverStarting(FMLServerStartingEvent event)
     {

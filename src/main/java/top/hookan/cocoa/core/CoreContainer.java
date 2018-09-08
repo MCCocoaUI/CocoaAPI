@@ -20,7 +20,7 @@ public class CoreContainer extends DummyModContainer
         meta.authorList = Arrays.asList("huangtian_hookan");
         meta.description = "Cocoa API Core.";
     }
-    
+
     public boolean registerBus(EventBus bus, LoadController controller)
     {
         bus.register(new RegistryHandler());

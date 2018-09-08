@@ -19,7 +19,7 @@ public class GifRender
     private int frames = 0;
     private ResourceLocation framesRL[];
     private TextureManager renderEngine;
-    
+
     GifRender(InputStream input, String name) throws IOException
     {
         ImageInputStream stream = ImageIO.createImageInputStream(input);
@@ -42,19 +42,20 @@ public class GifRender
             }
         }
     }
-    
+
     public int getFrames()
     {
         return frames;
     }
-    
+
     public void bindFrame(int frame)
     {
         if (frame >= frames) return;
         renderEngine.bindTexture(framesRL[frame]);
     }
-    
-    public void doDraw(int frame, double x, double y, double w, double h, double u, double v, double tw, double th, double twm, double thm)
+
+    public void doDraw(int frame, double x, double y, double w, double h, double u, double v, double tw, double th,
+                       double twm, double thm)
     {
         if (frame >= frames) return;
         bindFrame(frame);
